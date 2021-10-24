@@ -195,7 +195,9 @@ namespace Formal_Specification
             {
                 output += "\n\t\t\t" + listVariable[i].printDeclareCSharp() + " = 0;";
             }
-            output += "\n\t\t\t" + this.result.printDeclareCSharp() + " =0;";
+
+            output += "\n\t\t\t" + this.result.printDeclareCSharp() + " = 0;";
+
             output += "\n\t\t\tprogram.Input_" + this.nameFunc + "(";
             for (int i = 0; i < listVariable.Count; i++)
             {

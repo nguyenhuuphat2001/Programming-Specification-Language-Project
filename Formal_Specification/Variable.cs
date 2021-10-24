@@ -34,21 +34,27 @@ namespace Formal_Specification
             switch (this.dataType)
             {
                 case "N":
-                    dataType = "double";
+                    dataType = "int";
                     break;
 
                 case "R":
-                    dataType = "float";
+                    dataType = "double";
                     break;
 
                 case "Z":
-                    dataType = "double";
+                    dataType = "int";
                     break;
 
                 case "B":
                     dataType = "bool";
                     break;
 
+                case "char*":
+                    dataType = "String";
+                    break;
+                case "R*":
+                    dataType = "double[]";
+                    break;
             }
 
             return dataType;

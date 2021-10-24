@@ -24,6 +24,8 @@ namespace Formal_Specification
             InitializeComponent();
             btnBuild.Click += BtnBuild_Click;
             btnRun.Click += BtnRun_Click;
+
+            
         }
 
         private void BtnRun_Click(object sender, EventArgs e)
@@ -51,6 +53,7 @@ namespace Formal_Specification
                                 ", '" + CompErr.ErrorText + ";" +
                                 Environment.NewLine + Environment.NewLine;
                 }*/
+                
             }
             else
             {
@@ -66,27 +69,42 @@ namespace Formal_Specification
 
         private void BtnBuild_Click(object sender, EventArgs e)
         {
-            Function function= new Function();
-            function.splitFunction(richTextBox1.Text);
-            richTextBox2.Text = function.printFunction();
-            string[] words = { "public", "void","int","float","double","ref"};
-            foreach(string word in words)
+
+            if (rdBtnType1.Checked)
             {
-                int startIndex = 0;
-                while(startIndex < richTextBox2.TextLength)
+                Function function = new Function();
+                function.splitFunction(richTextBox1.Text);
+                richTextBox2.Text = function.printFunction();
+                string[] words = { "public", "void", "int", "float", "double", "ref" };
+                foreach (string word in words)
                 {
-                    int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
-                    if (wordStartIndex != -1)
+                    int startIndex = 0;
+                    while (startIndex < richTextBox2.TextLength)
                     {
-                        richTextBox2.SelectionStart = wordStartIndex;
-                        richTextBox2.SelectionLength = word.Length;
-                        richTextBox2.SelectionColor = Color.Blue;
+                        int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
+                        if (wordStartIndex != -1)
+                        {
+                            richTextBox2.SelectionStart = wordStartIndex;
+                            richTextBox2.SelectionLength = word.Length;
+                            richTextBox2.SelectionColor = Color.Blue;
+                        }
+                        else
+                            break;
+                        startIndex += wordStartIndex + 1;
                     }
-                    else
-                        break;
-                    startIndex += wordStartIndex + 1;
                 }
             }
+
+            else if (rdBtnType2.Checked)
+            {
+               
+                FunctionType2 functionType2 = new FunctionType2();
+
+                functionType2.splitFunction(richTextBox1.Text);
+                richTextBox2.Text = functionType2.printFunction();
+
+            }
+            
         }
 
 
