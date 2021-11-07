@@ -64,11 +64,39 @@ namespace Formal_Specification
           
         public string printInputCSharp()
         {
-            return "\n\t\t\tConsole.WriteLine(\"Nhap " + this.name + " : \");" +
+            return "\n\t\t\tConsole.Write(\"Input " + this.name + " : \");" +
                  "\n\t\t\t" + this.name + " = " + this.identifyDataTypeCSharp() + ".Parse(Console.ReadLine());";
+
         }
 
-        public string printDeclareCSharp()
+        public string printInputArrayCSharp(string nVariable)
+        {
+            //a = new double[n];
+            string output = "";
+
+            string arrayDataType = this.identifyDataTypeCSharp().Replace("[", "").Replace("]", "");
+
+            output += "\n\t\t\t" + this.name + " = new " + arrayDataType + "[" + nVariable + "];";
+
+            output +=
+                "\n\t\t\tConsole.WriteLine(\"Input array " + this.name + " \");" +
+                "\n\t\t\tfor (int i = 0; i < " + nVariable + "; i++)" +
+                "\n\t\t\t{" +
+                "\n\t\t\t\tConsole.Write(\"Input " + this.name + "[{0}]: \", i);" +
+                "\n\t\t\t\t" + this.name + "[i]" + " = " + arrayDataType + ".Parse(Console.ReadLine());" +
+                "\n\t\t\t}";
+
+            return output;
+        }
+        
+   //     Console.WriteLine("Input array : ");
+			//for (int i = 0; i<n; i++)
+   //         {
+			//	Console.Write("Input a[{0}] : ", i);
+			//	a[i] = double.Parse(Console.ReadLine());
+   //         }
+
+    public string printDeclareCSharp()
         {
             return this.identifyDataTypeCSharp() + " " + this.getName();
         }
@@ -85,6 +113,30 @@ namespace Formal_Specification
                 output = string.Format("{0} {1} = 0;", this.identifyDataTypeCSharp(), this.getName());
             };
             return output;
+        }
+
+        public string printArrayInitializeCSharp(string nVariable)
+        {
+            string output = "";
+
+            //if (this.identifyDataTypeCSharp() == "string")
+            //    output = string.Format("{0} {1} = \"\";", this.identifyDataTypeCSharp(), this.getName());
+            //else if (this.identifyDataTypeCSharp() == "bool")
+            //    output = string.Format("{0} {1} = false;", this.identifyDataTypeCSharp(), this.getName());
+            //else
+            //{
+            //    output = string.Format("{0} {1} = 0;", this.identifyDataTypeCSharp(), this.getName());
+            //};
+
+            // double[] or int[]
+            // double[] a = new double[n];
+
+            string arrayDataType = this.identifyDataTypeCSharp().Replace("[", "").Replace("]", "");
+
+            output += string.Format("{0} {1} = new {2}[{3}];", this.identifyDataTypeCSharp(), this.getName(), arrayDataType, nVariable);
+
+            return output;
+
         }
 
     }
