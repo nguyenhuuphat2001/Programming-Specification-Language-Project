@@ -1,0 +1,10 @@
+F:\DTHT\Formal Specification\Formal Specification\bin\Debug\Formal Specification.exe.config
+F:\DTHT\Formal Specification\Formal Specification\bin\Debug\Formal Specification.exe
+F:\DTHT\Formal Specification\Formal Specification\bin\Debug\Formal Specification.pdb
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.csprojAssemblyReference.cache
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal_Specification.Form1.resources
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal_Specification.Properties.Resources.resources
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.csproj.GenerateResource.cache
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.csproj.CoreCompileInputs.cache
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.exe
+F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.pdb
