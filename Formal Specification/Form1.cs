@@ -127,6 +127,8 @@ namespace Formal_Specification
                 functionType2.splitFunction(richTextBox1.Text);
                 richTextBox2.Text = functionType2.printFunction();
 
+                // 
+
             }
 
         }
