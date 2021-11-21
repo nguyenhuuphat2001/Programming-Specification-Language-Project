@@ -32,9 +32,8 @@ namespace Formal_Specification
             Button ButtonObject = (Button)sender;
 
 
-
-            // lbStatus.Text = "";
             System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
+
             //Make sure we generate an EXE, not a DLL
             parameters.GenerateExecutable = true;
             parameters.OutputAssembly = Output;
@@ -73,62 +72,57 @@ namespace Formal_Specification
 
         private void BtnBuild_Click(object sender, EventArgs e)
         {
-            FunctionType1 function = new FunctionType1();
-            function.splitFunction(richTextBox1.Text);
-            richTextBox2.Text = function.printFunction();
-            string[] words = { "public", "void", "int", "float", "double", "ref" };
-            foreach (string word in words)
+
+            if (rdBtnCSharp.Checked)
             {
-                int startIndex = 0;
-                while (startIndex < richTextBox2.TextLength)
+
+                if (rdBtnType1.Checked)
                 {
-                    int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
-                    if (wordStartIndex != -1)
+                    FunctionType1 function = new FunctionType1();
+                    function.splitFunction(richTextBox1.Text);
+                    richTextBox2.Text = function.printFunction();
+                    string[] words = { "public", "void", "int", "float", "double", "ref" };
+                    foreach (string word in words)
                     {
-                        richTextBox2.SelectionStart = wordStartIndex;
-                        richTextBox2.SelectionLength = word.Length;
-                        richTextBox2.SelectionColor = Color.Blue;
-                    }
-                    else
-                        break;
-                    startIndex += wordStartIndex + 1;
-                }
-            }
-            /*if (rdBtnType1.Checked)
-            {
-                Function function = new Function();
-                function.splitFunction(richTextBox1.Text);
-                richTextBox2.Text = function.printFunction();
-                string[] words = { "public", "void", "int", "float", "double", "ref" };
-                foreach (string word in words)
-                {
-                    int startIndex = 0;
-                    while (startIndex < richTextBox2.TextLength)
-                    {
-                        int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
-                        if (wordStartIndex != -1)
+                        int startIndex = 0;
+                        while (startIndex < richTextBox2.TextLength)
                         {
-                            richTextBox2.SelectionStart = wordStartIndex;
-                            richTextBox2.SelectionLength = word.Length;
-                            richTextBox2.SelectionColor = Color.Blue;
+                            int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
+                            if (wordStartIndex != -1)
+                            {
+                                richTextBox2.SelectionStart = wordStartIndex;
+                                richTextBox2.SelectionLength = word.Length;
+                                richTextBox2.SelectionColor = Color.Blue;
+                            }
+                            else
+                                break;
+                            startIndex += wordStartIndex + 1;
                         }
-                        else
-                            break;
-                        startIndex += wordStartIndex + 1;
                     }
+                }
+
+                else if (rdBtnType2.Checked)
+                {
+
+                    FunctionType2 functionType2 = new FunctionType2();
+
+                    functionType2.splitFunction(richTextBox1.Text);
+                    richTextBox2.Text = functionType2.printFunction();
+
                 }
             }
 
-            else if (rdBtnType2.Checked)
+            if (rdBtnJava.Checked)
             {
+                richTextBox2.Text = "Have not done!!!";
+            }
 
-                FunctionType2 functionType2 = new FunctionType2();
 
-                functionType2.splitFunction(richTextBox1.Text);
-                richTextBox2.Text = functionType2.printFunction();
 
-            }*/
+            
 
         }
+
+        
     }
 }

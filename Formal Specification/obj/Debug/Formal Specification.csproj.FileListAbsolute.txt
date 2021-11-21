@@ -8,3 +8,13 @@ F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification
 F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.csproj.CoreCompileInputs.cache
 F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.exe
 F:\DTHT\Formal Specification\Formal Specification\obj\Debug\Formal Specification.pdb
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\bin\Debug\Formal Specification.exe.config
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\bin\Debug\Formal Specification.exe
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\bin\Debug\Formal Specification.pdb
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.csprojAssemblyReference.cache
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal_Specification.Form1.resources
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal_Specification.Properties.Resources.resources
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.csproj.GenerateResource.cache
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.csproj.CoreCompileInputs.cache
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.exe
+C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.pdb
