@@ -18,3 +18,13 @@ C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Speci
 C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.csproj.CoreCompileInputs.cache
 C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.exe
 C:\Users\MACBOOK\Documents\UIT\Specification\Coding (fix framework)\Formal Specification\obj\Debug\Formal Specification.pdb
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\bin\Debug\Formal Specification.exe.config
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\bin\Debug\Formal Specification.exe
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\bin\Debug\Formal Specification.pdb
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal Specification.csprojAssemblyReference.cache
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal_Specification.Form1.resources
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal_Specification.Properties.Resources.resources
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal Specification.csproj.GenerateResource.cache
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal Specification.csproj.CoreCompileInputs.cache
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal Specification.exe
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal Specification.pdb

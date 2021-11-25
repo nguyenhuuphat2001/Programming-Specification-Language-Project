@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Formal_Specification
 {
@@ -231,7 +228,7 @@ namespace Formal_Specification
             return output;
         }
 
-        public string printFunction()
+        public string printFunctionCSharp()
         {
             //Open
             string output = "using System;" +
@@ -286,5 +283,173 @@ namespace Formal_Specification
                 "\n}";
             return output;
         }
+
+        //
+        //JAVA CODE
+        //
+
+        public string printIfFormPreCdtJava(string cdt)
+        {
+            cdt = cdt.Replace("(", "").Replace(")", "");
+            string output = "\n\t\tif (";
+            string[] array = cdt.Split(new[] { "&&" }, StringSplitOptions.None);
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i < array.Length - 1)
+                {
+                    output += array[i] + " && ";
+                }
+                else
+                {
+                    output += array[i] + ")" +
+                        "\n\t\t{" +
+                        "\n\t\t\treturn 1;" +
+                        "\n\t\t}";
+                }
+            }
+            return output;
+        }
+
+        public string printIfFormPostCdtJava(string cdt)
+        {
+            cdt = cdt.Replace("(", "").Replace(")", "");
+            string output = "\n\t\tif (";
+            string[] array = cdt.Split(new[] { "&&" }, StringSplitOptions.None);
+            string returnResult = "return 0";
+            for (int i = 0; i < array.Length; i++)
+            {
+
+                if (array[i].Contains(this.result.getName() + "="))
+                {
+                    returnResult = array[i];
+                }
+                else
+                {
+
+                    if (array[i].Contains("=") && !array[i].Contains("!=") && !array[i].Contains("<=") && !array[i].Contains(">=") && !array[i].Contains("=="))
+                        array[i] = array[i].Replace("=", "==");
+                    if (i < array.Length - 1)
+                    {
+                        output += array[i] + " && ";
+                    }
+                    else
+                    {
+                        output += array[i] + ")" +
+                            "\n\t\t{" +
+                            "\n\t\t\t" + returnResult + ";" +
+                            "\n\t\t}";
+                    }
+                }
+            }
+            return output;
+        }
+
+        public string printPreConditionJava()
+        {
+            string output = "";
+            if (preCondition == "")
+            {
+                output = "\n\t\treturn 1;";
+            }
+            else if (preCondition.Contains("||"))
+            {
+                string[] array = preCondition.Split(new[] { "||" }, StringSplitOptions.None);
+                for (int i = 0; i < array.Length; i++)
+                {
+                    output += printIfFormPreCdtJava(array[i]);
+                }
+                output += "\n\t\treturn 0; ";
+            }
+            else if (preCondition.Contains("&&"))
+            {
+                output = printIfFormPreCdtJava(preCondition);
+                output += "\n\t\treturn 0; ";
+            }
+            else
+            {
+                output = "\n\t\tif (" + preCondition.Replace("(", "").Replace(")", "") + ")" +
+                         "\n\t\t\treturn 1;" +
+                         "\n\t\treturn 0;";
+            }
+            return output;
+        }
+
+        public string printPostConditionJava()
+        {
+            string output = "";
+            if (postCondition.Contains("||"))
+            {
+                string[] array = postCondition.Split(new[] { "||" }, StringSplitOptions.None);
+                for (int i = 0; i < array.Length; i++)
+                {
+                    output += printIfFormPostCdtJava(array[i]);
+                }
+            }
+            else if (postCondition.Contains("&&"))
+            {
+                output = printIfFormPostCdtJava(postCondition);
+            }
+            else
+            {
+                output = "\n\t\t" + postCondition.Replace("(", "").Replace(")", "") + ";";
+            }
+            return output;
+        }
+
+        public string printFunctionJava()
+        {
+            //Open
+            string className = "Program";
+            string variableClass = "program1";
+            string output = "import java.util.Scanner;" + 
+                "\npublic class " + className +" {";
+
+            for (int i = 0; i < listVariable.Count; i++)
+            {
+                output += "\n\t" + listVariable[i].printInitializeJava();
+            }
+            output += "\n\t" + this.result.printInitializeJava();
+
+            //Input
+            output += "\n\tpublic void Input_" + this.nameFunc + "(){" +
+                "\n\t\tScanner myObj = new Scanner(System.in);";
+            for (int i = 0; i < listVariable.Count; i++)
+            {
+                output += listVariable[i].printInputJava();
+            }
+            output += "\n\t}";
+
+            //Output
+            output += "\n\tpublic void Output_" + this.nameFunc + "(){" +
+                "\n\t\tSystem.out.println(\"Result: \"+ " + this.result.getName() + ");" +
+                "\n\t}";
+
+            //Pre function
+            output += "\n\tpublic int Check_" + this.nameFunc + "(){";
+            output += printPreConditionJava();
+            output += "\n\t}";
+
+            //Post Function
+            output += "\n\tpublic " + this.result.identifyDataTypeJava() + " " + this.nameFunc + "(){";
+            output += "\n\t\t" + this.result.printInitializeJava();
+            output += printPostConditionJava();
+            output += "\n\t\treturn " + this.result.getName() + ";";
+            output += "\n\t}";
+
+            //Main function
+            output += "\n\tpublic static void main(String[] args) {" + 
+                "\n\t\tProgram program1 = new Program();" + 
+                "\n\t\t" + variableClass + ".Input_" + this.nameFunc + "();" + 
+                "\n\t\tif(" + variableClass + ".Check_" + this.nameFunc + "() == 1){" + 
+                "\n\t\t\t" + variableClass + "." + this.result.getName() + " = " + variableClass + "." + this.nameFunc + "();" +
+                "\n\t\t}" + 
+                "\n\t\t" + variableClass + "." + "Output_" + this.nameFunc + "();" + 
+                "\n\t}" + 
+                "\n}";
+
+            return output;
+        }
+
     }
 }

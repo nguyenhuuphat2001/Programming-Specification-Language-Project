@@ -66,7 +66,6 @@ namespace Formal_Specification
         {
             return "\n\t\t\tConsole.Write(\"Input " + this.name + " : \");" +
                  "\n\t\t\t" + this.name + " = " + this.identifyDataTypeCSharp() + ".Parse(Console.ReadLine());";
-
         }
 
         public string printInputArrayCSharp(string nVariable)
@@ -94,9 +93,9 @@ namespace Formal_Specification
    //         {
 			//	Console.Write("Input a[{0}] : ", i);
 			//	a[i] = double.Parse(Console.ReadLine());
-   //         }
+    //         }
 
-    public string printDeclareCSharp()
+        public string printDeclareCSharp()
         {
             return this.identifyDataTypeCSharp() + " " + this.getName();
         }
@@ -137,6 +136,92 @@ namespace Formal_Specification
 
             return output;
 
+        }
+
+        //JAVA CODE
+
+        public string identifyDataTypeJava()
+        {
+            string output = "";
+            switch (this.dataType)
+            {
+                case "N":
+                    output = "int";
+                    break;
+
+                case "R":
+                    output = "double";
+                    break;
+
+                case "Z":
+                    output = "int";
+                    break;
+
+                case "B":
+                    output = "boolean";
+                    break;
+
+                case "char*":
+                    output = "String";
+                    break;
+                case "R*":
+                    output = "double[]";
+                    break;
+            }
+
+            return output;
+        }
+
+        public string identifyDataTypeUpcaseJava()
+        {
+            string output = "";
+            switch (this.dataType)
+            {
+                case "N":
+                    output = "Int";
+                    break;
+
+                case "R":
+                    output = "Double";
+                    break;
+
+                case "Z":
+                    output = "Int";
+                    break;
+
+                case "B":
+                    output = "Boolean";
+                    break;
+
+                case "char*":
+                    output = "String";
+                    break;
+                case "R*":
+                    output = "Double[]";
+                    break;
+            }
+
+            return output;
+        }
+        
+        public string printInitializeJava()
+        {
+            string output = "";
+            if (this.identifyDataTypeJava() == "String")
+                output = string.Format("{0} {1} = \"\";", this.identifyDataTypeJava(), this.getName());
+            else if (this.identifyDataTypeJava() == "boolean")
+                output = string.Format("{0} {1} = false;", this.identifyDataTypeJava(), this.getName());
+            else
+            {
+                output = string.Format("{0} {1} = 0;", this.identifyDataTypeJava(), this.getName());
+            };
+            return output;
+        }
+
+        public string printInputJava()
+        {
+            return "\n\t\tSystem.out.print(\"Input " + this.name + " : \");" +
+                 "\n\t\t" +  this.name + " = " + "myObj.next" + this.identifyDataTypeUpcaseJava() + "();";
         }
 
     }
