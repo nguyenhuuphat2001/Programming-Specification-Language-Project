@@ -88,15 +88,8 @@ namespace Formal_Specification
 
             if (rdBtnCSharp.Checked)
             {
-
-                if ((richTextBox1.Text.Contains("VM") && richTextBox1.Text.Contains("TH"))||(richTextBox1.Text.Contains("TT") && richTextBox1.Text.Contains("TH")))
-                {
-                    FunctionType2 functionType2 = new FunctionType2();
-
-                    functionType2.splitFunction(richTextBox1.Text);
-                    richTextBox2.Text = functionType2.printFunction();
-                }
-                else
+                // Type 1 CSharp
+                if(!CheckType2(richTextBox1.Text))
                 {
                     FunctionType1 function = new FunctionType1();
                     function.splitFunction(richTextBox1.Text);
@@ -119,40 +112,69 @@ namespace Formal_Specification
                             startIndex += wordStartIndex + 1;
                         }
                     }
-                } 
-                                   
+                }
+
+                // Type 2 CSharp
+                else
+                {
+                    FunctionType2 functionType2 = new FunctionType2();
+
+                    functionType2.splitFunction(richTextBox1.Text);
+                    richTextBox2.Text = functionType2.printFunctionCSharp();
+                }
                 
             }
 
             if (rdBtnJava.Checked)
             {
-                FunctionType1 function = new FunctionType1();
-                function.splitFunction(richTextBox1.Text);
-                richTextBox2.Text = function.printFunctionJava();
-                string[] words = { "public", "void", "int", "float", "double", " String" };
-                foreach (string word in words)
+                // Type 1 Java
+                if (!CheckType2(richTextBox1.Text))
                 {
-                    int startIndex = 0;
-                    while (startIndex < richTextBox2.TextLength)
+                    FunctionType1 function = new FunctionType1();
+                    function.splitFunction(richTextBox1.Text);
+                    richTextBox2.Text = function.printFunctionJava();
+                    string[] words = { "public", "void", "int", "float", "double", " String" };
+                    foreach (string word in words)
                     {
-                        int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
-                        if (wordStartIndex != -1)
+                        int startIndex = 0;
+                        while (startIndex < richTextBox2.TextLength)
                         {
-                            richTextBox2.SelectionStart = wordStartIndex;
-                            richTextBox2.SelectionLength = word.Length;
-                            richTextBox2.SelectionColor = Color.Blue;
+                            int wordStartIndex = richTextBox2.Find(word, startIndex, RichTextBoxFinds.None);
+                            if (wordStartIndex != -1)
+                            {
+                                richTextBox2.SelectionStart = wordStartIndex;
+                                richTextBox2.SelectionLength = word.Length;
+                                richTextBox2.SelectionColor = Color.Blue;
+                            }
+                            else
+                                break;
+                            startIndex += wordStartIndex + 1;
                         }
-                        else
-                            break;
-                        startIndex += wordStartIndex + 1;
                     }
                 }
+
+                // Type 2 Java
+                else
+                {
+                    FunctionType2 functionType2 = new FunctionType2();
+
+                    functionType2.splitFunction(richTextBox1.Text);
+                    richTextBox2.Text = functionType2.printFunctionJava();
+
+                }
+                    
             }
-
- 
-
         }
 
-        
+        public bool CheckType2(string formalLanguage)
+        {
+            if ((formalLanguage.Contains("TT") && formalLanguage.Contains("TH")) || (formalLanguage.Contains("VM") && formalLanguage.Contains("TH")))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }
