@@ -118,18 +118,6 @@ namespace Formal_Specification
         {
             string output = "";
 
-            //if (this.identifyDataTypeCSharp() == "string")
-            //    output = string.Format("{0} {1} = \"\";", this.identifyDataTypeCSharp(), this.getName());
-            //else if (this.identifyDataTypeCSharp() == "bool")
-            //    output = string.Format("{0} {1} = false;", this.identifyDataTypeCSharp(), this.getName());
-            //else
-            //{
-            //    output = string.Format("{0} {1} = 0;", this.identifyDataTypeCSharp(), this.getName());
-            //};
-
-            // double[] or int[]
-            // double[] a = new double[n];
-
             string arrayDataType = this.identifyDataTypeCSharp().Replace("[", "").Replace("]", "");
 
             output += string.Format("{0} {1} = new {2}[{3}];", this.identifyDataTypeCSharp(), this.getName(), arrayDataType, nVariable);
@@ -203,7 +191,12 @@ namespace Formal_Specification
 
             return output;
         }
-        
+
+        public string printDeclareJava()
+        {
+            return this.identifyDataTypeJava() + " " + this.getName();
+        }
+
         public string printInitializeJava()
         {
             string output = "";
@@ -224,5 +217,37 @@ namespace Formal_Specification
                  "\n\t\t" +  this.name + " = " + "myObj.next" + this.identifyDataTypeUpcaseJava() + "();";
         }
 
+        public string printArrayInitializeJava(string nVariable)
+        {
+            string output = "";
+
+            string arrayDataType = this.identifyDataTypeJava().Replace("[", "").Replace("]", "");
+
+            output += string.Format("{0} {1} = new {2}[{3}];", this.identifyDataTypeJava(), this.getName(), arrayDataType, nVariable);
+
+            return output;
+
+        }
+
+        public string printInputArrayJava(string nVariable)
+        {
+            //a = new double[n];
+            string output = "";
+
+            string arrayDataType = this.identifyDataTypeJava().Replace("[", "").Replace("]", "");
+            string arrayDataTypeInput = this.identifyDataTypeUpcaseJava().Replace("[", "").Replace("]", "");
+
+            output += "\n\t\t" + this.name + " = new " + arrayDataType + "[" + nVariable + "];";
+
+            output +=
+                "\n\t\tSystem.out.println(\"Input array " + this.name + " : \");" +
+                "\n\t\tfor (int i = 0; i < " + nVariable + "; i++)" +
+                "\n\t\t{" +
+                "\n\t\t\tSystem.out.print(\"Input " + this.name + "[\"" + " + i + " + "\"]: " +"\");" +
+                "\n\t\t\t" + this.name + "[i]" + " = " + "myObj.next" + arrayDataTypeInput + "();" +
+            "\n\t\t}";
+
+            return output;
+        }
     }
 }
