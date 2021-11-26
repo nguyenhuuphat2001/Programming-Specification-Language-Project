@@ -333,91 +333,192 @@ namespace Formal_Specification
 
 
             // identify ifCondition
-            string ifCondition = this.ifCondition;
-            ifCondition = ifCondition.Replace("(", "").Replace(")", "").Replace("a", "");
-
-
-            if (ifCondition.Contains("<="))
+            // Uptrend ifCondition
+            if (!forLoopRange1[0].Contains("n"))
             {
-                comparisonSign = "<=";
-                reverseComparisonSign = ">=";
+                string ifCondition = this.ifCondition;
+                ifCondition = ifCondition.Replace("(", "").Replace(")", "").Replace("a", "");
+
+
+                if (ifCondition.Contains("<="))
+                {
+                    comparisonSign = "<=";
+                    reverseComparisonSign = ">=";
+                }
+                else if (ifCondition.Contains(">="))
+                {
+                    comparisonSign = ">=";
+                    reverseComparisonSign = "<=";
+                }
+                else if (ifCondition.Contains("<"))
+                {
+                    comparisonSign = "<";
+                    reverseComparisonSign = ">";
+                }
+                else if (ifCondition.Contains(">"))
+                {
+                    comparisonSign = ">";
+                    reverseComparisonSign = "<";
+                }
+
+                string[] stringSeparators3 = new string[] { comparisonSign };
+                string[] ifCdtArray = ifCondition.Split(stringSeparators3, StringSplitOptions.None);
+
+
+                // print if condition for TT vs TT
+                if (firstCdt.Equals("TT") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\treturn true;\n\t\t\t\t\t}";
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t\treturn false;";
+                    output += "\n\t\t}";
+                }
+
+                // print if condition for TT vs VM
+                else if (firstCdt.Equals("TT") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\tcount++;\n\t\t\t\t\t}";
+
+                    output += "\n\t\t\t\t\tif (count == " + forLoopRange2[1] + "-1-" + "i)" + "\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\treturn true;\n\t\t\t\t\t}";
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t\tcount = 0;";
+                    output += "\n\t\t\t}";
+
+                    output += "\n\t\t\treturn false;";
+                    output += "\n\t\t}";
+
+                }
+
+                // print if condition for VM vs TT
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\tcount++;";
+                    output += "\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t}";
+
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+
+                    output += "\n\t\t\tif (count == " + forLoopRange1[1] + ")\n\t\t\t{";
+                    output += "\n\t\t\t\treturn true;\n\t\t\t}";
+                    output += "\n\t\t\treturn false;";
+
+                    output += "\n\t\t}";
+                }
+
+                // print if condition for VM vs VM
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + reverseComparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\treturn false;\n\t\t\t\t\t}";
+
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+
+                    output += "\n\t\t\treturn true;";
+
+                    output += "\n\t\t}";
+                }
+
             }
-            else if (ifCondition.Contains(">="))
+
+            // Downtrend ifCondition
+            else
             {
-                comparisonSign = ">=";
-                reverseComparisonSign = "<=";
+                string ifCondition = this.ifCondition;
+                ifCondition = ifCondition.Replace("(", "").Replace(")", "").Replace("a", "");
+
+
+                if (ifCondition.Contains("<="))
+                {
+                    comparisonSign = "<=";
+                    reverseComparisonSign = ">=";
+                }
+                else if (ifCondition.Contains(">="))
+                {
+                    comparisonSign = ">=";
+                    reverseComparisonSign = "<=";
+                }
+                else if (ifCondition.Contains("<"))
+                {
+                    comparisonSign = "<";
+                    reverseComparisonSign = ">";
+                }
+                else if (ifCondition.Contains(">"))
+                {
+                    comparisonSign = ">";
+                    reverseComparisonSign = "<";
+                }
+
+                string[] stringSeparators3 = new string[] { comparisonSign };
+                string[] ifCdtArray = ifCondition.Split(stringSeparators3, StringSplitOptions.None);
+
+
+                // print if condition for TT vs TT
+                if (firstCdt.Equals("TT") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\treturn true;\n\t\t\t\t\t}";
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t\treturn false;";
+                    output += "\n\t\t}";
+                }
+
+                // print if condition for TT vs VM
+                else if (firstCdt.Equals("TT") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\tcount++;\n\t\t\t\t\t}";
+
+                    output += "\n\t\t\t\t\tif (count == " + "i)" + "\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\treturn true;\n\t\t\t\t\t}";
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t\tcount = 0;";
+                    output += "\n\t\t\t}";
+
+                    output += "\n\t\t\treturn false;";
+                    output += "\n\t\t}";
+                   
+                }
+
+                // print if condition for VM vs TT
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\tcount++;";
+                    output += "\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t}";
+
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+
+                    output += "\n\t\t\tif (count == " + forLoopRange1[0] + " -1 )\n\t\t\t{";
+                    output += "\n\t\t\t\treturn true;\n\t\t\t}";
+                    output += "\n\t\t\treturn false;";
+
+                    output += "\n\t\t}";
+
+                }
+
+                // print if condition for VM vs VM
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + reverseComparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
+                    output += "\n\t\t\t\t\t\treturn false;\n\t\t\t\t\t}";
+
+                    output += "\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+
+                    output += "\n\t\t\treturn true;";
+
+                    output += "\n\t\t}";
+                }
             }
-            else if (ifCondition.Contains("<"))
-            {
-                comparisonSign = "<";
-                reverseComparisonSign = ">";
-            }
-            else if (ifCondition.Contains(">"))
-            {
-                comparisonSign = ">";
-                reverseComparisonSign = "<";
-            }
 
-            string[] stringSeparators3 = new string[] { comparisonSign };
-            string[] ifCdtArray = ifCondition.Split(stringSeparators3, StringSplitOptions.None);
-
-
-            // print if condition for TT vs TT
-            if(firstCdt.Equals("TT") && secondCdt.Equals("TT"))
-            {
-                output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
-                output += "\n\t\t\t\t\t\treturn true;\n\t\t\t\t\t}";
-                output += "\n\t\t\t\t}";
-                output += "\n\t\t\t}";
-                output += "\n\t\t\treturn false;";
-                output += "\n\t\t}";
-            }
-
-            // print if condition for TT vs VM
-            else if (firstCdt.Equals("TT") && secondCdt.Equals("VM"))
-            {
-                output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
-                output += "\n\t\t\t\t\t\tcount++;\n\t\t\t\t\t}";
-
-                output += "\n\t\t\t\t\tif (count == " + forLoopRange2[1] + "-1-" + "j+1)" + "\n\t\t\t\t\t{";
-                output += "\n\t\t\t\t\t\treturn true;\n\t\t\t\t\t}";
-                output += "\n\t\t\t\t}";
-                output += "\n\t\t\t}";
-
-                output += "\n\t\t\treturn false;";
-                output += "\n\t\t}";
-            }
-
-            // print if condition for VM vs TT
-            else if (firstCdt.Equals("VM") && secondCdt.Equals("TT"))
-            {
-                output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
-                output += "\n\t\t\t\t\t\tcount++;";
-                output += "\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t}";
-
-                output += "\n\t\t\t\t}";
-                output += "\n\t\t\t}";
-
-                output += "\n\t\t\tif (count == " + forLoopRange1[1] + ")\n\t\t\t{";
-                output += "\n\t\t\t\treturn true;\n\t\t\t}";
-                output += "\n\t\t\treturn false;";
-
-                output += "\n\t\t}";
-            }
-
-            // print if condition for VM vs VM
-            else if (firstCdt.Equals("VM") && secondCdt.Equals("VM"))
-            {
-                output += "\n\t\t\t\t\tif (a[" + ifCdtArray[0] + "] " + reverseComparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t\t{";
-                output += "\n\t\t\t\t\t\treturn false;\n\t\t\t\t\t}";
-
-                output += "\n\t\t\t\t}";
-                output += "\n\t\t\t}";
-
-                output += "\n\t\t\treturn true;";
-
-                output += "\n\t\t}";
-            }
 
             return output;
         }
@@ -700,28 +801,6 @@ namespace Formal_Specification
             return output;
         }
 
-        //public string printPostConditionJava()
-        //{
-        //    string output = "";
-        //    if (postCondition.Contains("||"))
-        //    {
-        //        string[] array = postCondition.Split(new[] { "||" }, StringSplitOptions.None);
-        //        for (int i = 0; i < array.Length; i++)
-        //        {
-        //            output += printIfFormPostCdtJava(array[i]);
-        //        }
-        //    }
-        //    else if (postCondition.Contains("&&"))
-        //    {
-        //        output = printIfFormPostCdtJava(postCondition);
-        //    }
-        //    else
-        //    {
-        //        output = "\n\t\t" + postCondition.Replace("(", "").Replace(")", "") + ";";
-        //    }
-        //    return output;
-        //}
-
         public string printVariableDeclarationJava()
         {
             string output = "";
@@ -804,34 +883,419 @@ namespace Formal_Specification
         {
             string output = "";
 
-            output += "\n\t\tpublic " + this.result.identifyDataTypeJava() + " " + this.nameFunc + "(";
-            output += printListVariableDeclareJava();
-            output += printPostConditionCSharp();
+            output += "\n\tpublic " + this.result.identifyDataTypeJava() + " " + this.nameFunc + "(";
+            output += ")\n\t{";
+            output += printPostConditionJava();
 
             output += "\n";
 
             return output;
         }
 
-        public string printListVariableDeclareJava()
+        public string printPostConditionJava()
         {
             string output = "";
-            for (int i = 0; i < listVariable.Count; i++)
-            {
-                output += listVariable[i].printDeclareJava();
-                if (i < listVariable.Count - 1)
-                {
-                    output += ", ";
-                }
-                else
-                {
-                    output += ")\n\t\t{";
-                }
-            }
+
+            splitPostJava(this.postCondition);
+
+            output += printForFormPostCdtJava();
+
+
             return output;
         }
-        
-       
+
+        public void splitPostJava(string SLCode)
+        {
+            //Split line
+            // Replace {1..n-1} to {1tn-1}
+            string a = SLCode.Replace("..", "t");
+            string[] stringSeparators = new string[] { "." };
+            string[] words = a.Split(stringSeparators, StringSplitOptions.None);
+
+            // if condition
+            ifCondition = words[words.Length - 1];
+
+            // listForCondition - Remove unuseful charater
+            for (int i = 0; i <= words.Length - 2; i++)
+            {
+                String str = words[i];
+                str = str.Replace("kq=", "").Replace("(", "").Replace("{", "").Replace("}", "");
+
+                listForCondition.Add(str);
+            }
+
+        }
+
+        // print and identify ForLoop Form
+        public string printForFormPostCdtJava()
+        {
+            string output = "";
+
+            // One condition
+            if (this.listForCondition.Count == 1)
+            {
+                string[] array = listForCondition.ToArray();
+                string cdtType = array[0];
+
+                if (cdtType.Contains("VM"))
+                {
+                    output += printOneForloopCdtPostJava(cdtType, "VM");
+                }
+                else if (cdtType.Contains("TT"))
+                {
+                    output += printOneForloopCdtPostJava(cdtType, "TT");
+                }
+            }
+
+            // Two condition
+            else if (this.listForCondition.Count == 2)
+            {
+                string[] array = listForCondition.ToArray();
+                string firstCdt = array[0];
+                string secondeCdt = array[1];
+
+                if (firstCdt.Contains("TT") && secondeCdt.Contains("VM"))
+                {
+                    output += printTwoForloopCdtPostJava(firstCdt, secondeCdt, "TT", "VM");
+                }
+                else if (firstCdt.Contains("TT") && secondeCdt.Contains("TT"))
+                {
+                    output += printTwoForloopCdtPostJava(firstCdt, secondeCdt, "TT", "TT");
+                }
+                else if (firstCdt.Contains("VM") && secondeCdt.Contains("VM"))
+                {
+                    output += printTwoForloopCdtPostJava(firstCdt, secondeCdt, "VM", "VM");
+                }
+                else if (firstCdt.Contains("VM") && secondeCdt.Contains("TT"))
+                {
+                    output += printTwoForloopCdtPostJava(firstCdt, secondeCdt, "VM", "TT");
+                }
+            }
+
+            return output;
+        }
+
+
+        public string printOneForloopCdtPostJava(string vmCdt, string cdtType)
+        {
+            string output = "";
+            string comparisonSign = "";
+            string reverseComparisonSign = "";
+
+            // identify forLoopRange
+            string str = vmCdt.Replace("VM", "").Replace("TT", "").Replace("i", "").Replace("j", "").Replace("TH", "");
+            string[] stringSeparators = new string[] { "t" };
+            string[] forLoopRange = str.Split(stringSeparators, StringSplitOptions.None);
+
+
+            // print forLoop
+            // Uptrend Forloop
+            if (!forLoopRange[0].Contains("n"))
+            {
+                output += "\n\t\tfor (int i = " + forLoopRange[0] + "-1; i <= " + forLoopRange[1] + "-1; i++)\n\t\t{\n\t\t\t";
+            }
+            else
+            {
+                output += "\n\t\tfor (int i = " + forLoopRange[0] + "-1; i >= " + forLoopRange[1] + "-1; i--)\n\t\t{\n\t\t\t";
+            }
+
+
+            // identify ifCondition
+            string ifCondition = this.ifCondition;
+            ifCondition = ifCondition.Replace("(", "").Replace(")", "").Replace("a", "");
+
+
+            if (ifCondition.Contains("<="))
+            {
+                comparisonSign = "<=";
+                reverseComparisonSign = ">=";
+            }
+            else if (ifCondition.Contains(">="))
+            {
+                comparisonSign = ">=";
+                reverseComparisonSign = "<=";
+            }
+            else if (ifCondition.Contains("<"))
+            {
+                comparisonSign = "<";
+                reverseComparisonSign = ">";
+            }
+            else if (ifCondition.Contains(">"))
+            {
+                comparisonSign = ">";
+                reverseComparisonSign = "<";
+            }
+
+            string[] stringSeparators2 = new string[] { comparisonSign };
+            string[] ifCdtArray = ifCondition.Split(stringSeparators2, StringSplitOptions.None);
+
+            // VM condition type
+            if (cdtType.Equals("VM"))
+            {
+                // print if condition
+                output += "if (a[" + ifCdtArray[0] + "] " + reverseComparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t{";
+
+                output += "\n\t\t\t\treturn false;\n\t\t\t}";
+                output += "\n\t\t}";
+                output += "\n\t\treturn true;";
+                output += "\n\t}";
+            }
+
+            // TT condition type
+            if (cdtType.Equals("TT"))
+            {
+                // print if condition
+                output += "if (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t{";
+
+                output += "\n\t\t\t\treturn true;\n\t\t\t}";
+                output += "\n\t\t}";
+                output += "\n\t\treturn false;";
+                output += "\n\t}";
+            }
+
+
+            return output;
+        }
+
+        public string printTwoForloopCdtPostJava(string firstCondition, string secondCondition, string firstCdt, string secondCdt)
+        {
+            string output = "";
+            string comparisonSign = "";
+            string reverseComparisonSign = "";
+
+            // identify forLoopRange for first condition
+            string str1 = firstCondition.Replace("VM", "").Replace("TT", "").Replace("i", "").Replace("TH", "");
+            string[] stringSeparators1 = new string[] { "t" };
+            string[] forLoopRange1 = str1.Split(stringSeparators1, StringSplitOptions.None);
+
+            // identify forLoopRange for second condition
+            string str2 = secondCondition.Replace("VM", "").Replace("TT", "").Replace("j", "").Replace("TH", "");
+            string[] stringSeparators2 = new string[] { "t" };
+            string[] forLoopRange2 = str2.Split(stringSeparators2, StringSplitOptions.None);
+
+
+            // print declare variable
+            // TT vs VM
+            if ((firstCdt.Equals("TT") && secondCdt.Equals("VM"))
+                || (firstCdt.Equals("VM") && secondCdt.Equals("TT")))
+            {
+                output += "\n\t\tint count = 0;";
+            }
+
+
+
+            // print forLoop first condition
+            // Uptrend Forloop
+            if (!forLoopRange1[0].Contains("n"))
+            {
+                output += "\n\t\tfor (int i = " + forLoopRange1[0] + "-1; i <= " + forLoopRange1[1] + "-1; i++)\n\t\t{\n\t\t\t";
+            }
+            //Downtrend Forloop
+            else
+            {
+                output += "\n\t\tfor (int i = " + forLoopRange1[0] + "-1; i >= " + forLoopRange1[1] + "-1; i--)\n\t\t{\n\t\t\t";
+            }
+
+            // print forLoop second condition
+            // Uptrend Forloop
+            if (!forLoopRange1[0].Contains("n"))
+            {
+                output += "\n\t\t\tfor (int j = " + forLoopRange2[0] + "; j <= " + forLoopRange2[1] + "-1; j++)\n\t\t\t{";
+            }
+            // Downtrend Forloop
+            else
+            {
+                output += "\n\t\t\tfor (int j = " + forLoopRange2[0] + "; j >= " + forLoopRange2[1] + "-1; j--)\n\t\t\t{";
+            }
+
+
+
+            // identify ifCondition
+            // Uptrend ifCondition
+            if (!forLoopRange1[0].Contains("n"))
+            {
+                string ifCondition = this.ifCondition;
+                ifCondition = ifCondition.Replace("(", "").Replace(")", "").Replace("a", "");
+
+
+                if (ifCondition.Contains("<="))
+                {
+                    comparisonSign = "<=";
+                    reverseComparisonSign = ">=";
+                }
+                else if (ifCondition.Contains(">="))
+                {
+                    comparisonSign = ">=";
+                    reverseComparisonSign = "<=";
+                }
+                else if (ifCondition.Contains("<"))
+                {
+                    comparisonSign = "<";
+                    reverseComparisonSign = ">";
+                }
+                else if (ifCondition.Contains(">"))
+                {
+                    comparisonSign = ">";
+                    reverseComparisonSign = "<";
+                }
+
+                string[] stringSeparators3 = new string[] { comparisonSign };
+                string[] ifCdtArray = ifCondition.Split(stringSeparators3, StringSplitOptions.None);
+
+
+                // print if condition for TT vs TT
+                if (firstCdt.Equals("TT") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\treturn true;\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t}";
+                    output += "\n\t\treturn false;";
+                    output += "\n\t}";
+                }
+
+                // print if condition for TT vs VM
+                else if (firstCdt.Equals("TT") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\tcount++;\n\t\t\t\t}";
+
+                    output += "\n\t\t\t\tif (count == " + forLoopRange2[1] + "-1-" + "i)" + "\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\treturn true;\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t\tcount = 0;";
+                    output += "\n\t\t}";
+
+                    output += "\n\t\treturn false;";
+                    output += "\n\t}";
+                }
+
+                // print if condition for VM vs TT
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\tcount++;";
+                    output += "\n\t\t\t\t\tbreak;\n\t\t\t\t}";
+
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t}";
+
+                    output += "\n\t\tif (count == " + forLoopRange1[1] + ")\n\t\t{";
+                    output += "\n\t\t\treturn true;\n\t\t}";
+                    output += "\n\t\treturn false;";
+
+                    output += "\n\t}";
+                }
+
+                // print if condition for VM vs VM
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + reverseComparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\treturn false;\n\t\t\t\t}";
+
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t}";
+
+                    output += "\n\t\treturn true;";
+
+                    output += "\n\t}";
+                }
+            }
+
+            // Downtrend ifCondition
+            else
+            {
+                string ifCondition = this.ifCondition;
+                ifCondition = ifCondition.Replace("(", "").Replace(")", "").Replace("a", "");
+
+
+                if (ifCondition.Contains("<="))
+                {
+                    comparisonSign = "<=";
+                    reverseComparisonSign = ">=";
+                }
+                else if (ifCondition.Contains(">="))
+                {
+                    comparisonSign = ">=";
+                    reverseComparisonSign = "<=";
+                }
+                else if (ifCondition.Contains("<"))
+                {
+                    comparisonSign = "<";
+                    reverseComparisonSign = ">";
+                }
+                else if (ifCondition.Contains(">"))
+                {
+                    comparisonSign = ">";
+                    reverseComparisonSign = "<";
+                }
+
+                string[] stringSeparators3 = new string[] { comparisonSign };
+                string[] ifCdtArray = ifCondition.Split(stringSeparators3, StringSplitOptions.None);
+
+
+                // print if condition for TT vs TT
+                if (firstCdt.Equals("TT") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\treturn true;\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t}";
+                    output += "\n\t\treturn false;";
+                    output += "\n\t}";
+                }
+
+                // print if condition for TT vs VM
+                else if (firstCdt.Equals("TT") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\tcount++;\n\t\t\t\t}";
+
+                    output += "\n\t\t\t\tif (count == " + "i)" + "\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\treturn true;\n\t\t\t\t}";
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t\tcount = 0;";
+                    output += "\n\t\t}";
+
+                    output += "\n\t\treturn false;";
+                    output += "\n\t}";
+                }
+
+                // print if condition for VM vs TT
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("TT"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + comparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\tcount++;";
+                    output += "\n\t\t\t\t\tbreak;\n\t\t\t\t}";
+
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t}";
+
+                    output += "\n\t\tif (count == " + forLoopRange1[0] + " -1 )\n\t\t{";
+                    output += "\n\t\t\treturn true;\n\t\t}";
+                    output += "\n\t\treturn false;";
+
+                    output += "\n\t}";
+                }
+
+                // print if condition for VM vs VM
+                else if (firstCdt.Equals("VM") && secondCdt.Equals("VM"))
+                {
+                    output += "\n\t\t\t\tif (a[" + ifCdtArray[0] + "] " + reverseComparisonSign + " a[" + ifCdtArray[1] + "])\n\t\t\t\t{";
+                    output += "\n\t\t\t\t\treturn false;\n\t\t\t\t}";
+
+                    output += "\n\t\t\t}";
+                    output += "\n\t\t}";
+
+                    output += "\n\t\treturn true;";
+
+                    output += "\n\t}";
+                }
+            }
+
+
+            return output;
+        }
 
         public string printFunctionJava()
         {

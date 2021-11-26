@@ -235,16 +235,17 @@ namespace Formal_Specification
             string output = "";
 
             string arrayDataType = this.identifyDataTypeJava().Replace("[", "").Replace("]", "");
+            string arrayDataTypeInput = this.identifyDataTypeUpcaseJava().Replace("[", "").Replace("]", "");
 
             output += "\n\t\t" + this.name + " = new " + arrayDataType + "[" + nVariable + "];";
 
             output +=
-                "\n\t\tConsole.WriteLine(\"Input array " + this.name + " \");" +
+                "\n\t\tSystem.out.println(\"Input array " + this.name + " : \");" +
                 "\n\t\tfor (int i = 0; i < " + nVariable + "; i++)" +
                 "\n\t\t{" +
-                "\n\t\t\tConsole.Write(\"Input " + this.name + "[{0}]: \", i);" +
-                "\n\t\t\t" + this.name + "[i]" + " = " + arrayDataType + ".Parse(Console.ReadLine());" +
-                "\n\t\t}";
+                "\n\t\t\tSystem.out.print(\"Input " + this.name + "[\"" + " + i + " + "\"]: " +"\");" +
+                "\n\t\t\t" + this.name + "[i]" + " = " + "myObj.next" + arrayDataTypeInput + "();" +
+            "\n\t\t}";
 
             return output;
         }
