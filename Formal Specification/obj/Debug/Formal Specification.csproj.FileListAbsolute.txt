@@ -38,3 +38,6 @@ C:\Users\MACBOOK\Documents\UIT\Specification\Coding Project\Formal Specification
 C:\Users\MACBOOK\Documents\UIT\Specification\Coding Project\Formal Specification\obj\Debug\Formal Specification.csproj.CoreCompileInputs.cache
 C:\Users\MACBOOK\Documents\UIT\Specification\Coding Project\Formal Specification\obj\Debug\Formal Specification.exe
 C:\Users\MACBOOK\Documents\UIT\Specification\Coding Project\Formal Specification\obj\Debug\Formal Specification.pdb
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\bin\Debug\FastColoredTextBox.dll
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\bin\Debug\FastColoredTextBox.xml
+E:\DTHT\Formal_Specification\CodingProject\Formal Specification\obj\Debug\Formal Specification.csproj.CopyComplete

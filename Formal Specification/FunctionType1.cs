@@ -232,7 +232,7 @@ namespace Formal_Specification
         {
             //Open
             string output = "using System;" +
-                "\nnamespace test" +
+                "\nnamespace Formular_Specification" +
                 "\n{" +
                 "\n\tclass Program" +
                 "\n\t{";
