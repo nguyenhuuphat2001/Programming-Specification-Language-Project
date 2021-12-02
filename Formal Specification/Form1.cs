@@ -24,14 +24,14 @@ namespace Formal_Specification
             openToolStripMenuItem.Click += OpenToolStripMenuItem_Click;
             saveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
             exitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
-            generateToolStripMenuItem.Click += BtnBuild_Click;
+            generateToolStripMenuItem.Click += BtnGenerate_Click;
             aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
-            toolStripButton1.Click  += NewToolStripMenuItem_Click;
-            toolStripButton2.Click += OpenToolStripMenuItem_Click;
-            toolStripButton3.Click  += SaveToolStripMenuItem_Click;
-            toolStripLabel1.Click += ToolStripLabel1_Click;
-            toolStripLabel2.Click += ToolStripLabel2_Click;
-            btnBuild.Click += BtnBuild_Click;
+            newStripButton1.Click  += NewToolStripMenuItem_Click;
+            openStripButton2.Click += OpenToolStripMenuItem_Click;
+            saveStripButton3.Click  += SaveToolStripMenuItem_Click;
+            undoStripLabel1.Click += ToolStripLabel1_Click;
+            redoStripLabel2.Click += ToolStripLabel2_Click;
+            btnGenerate.Click += BtnGenerate_Click;
             btnRun.Click += BtnRun_Click;          
         }
       
@@ -39,7 +39,7 @@ namespace Formal_Specification
         {
             if (fastColoredTextBox1.Text != "")
             {
-                DialogResult dialogResult = MessageBox.Show("Do you want to save gerate code", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult dialogResult = MessageBox.Show("Do you want to save generate code", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResult == DialogResult.Yes)
                 {
                     SaveGenerateCode();                  
@@ -53,28 +53,36 @@ namespace Formal_Specification
         {
             if (fastColoredTextBox1.Text != "")
             {
-                DialogResult dialogResult = MessageBox.Show("Do you want to save gerate code", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult dialogResult = MessageBox.Show("Do you want to save generate code", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResult == DialogResult.Yes)
                 {
                     SaveGenerateCode();
-                }
-                openFileDialog1.ShowDialog();
-                try
-                {
-                    string file_name = openFileDialog1.FileName;
-                    string input = File.ReadAllText(file_name);
-                    richTextBox1.Text = input;
-                }
-                catch
-                {
-                    MessageBox.Show("Can't open file");
-                }
+                }               
+            }
+            openFileDialog1.ShowDialog();
+            try
+            {
+                string file_name = openFileDialog1.FileName;
+                string input = File.ReadAllText(file_name);
+                richTextBox1.Text = input;
+            }
+            catch
+            {
+                MessageBox.Show("Can't open file");
             }
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveGenerateCode();
+            if (fastColoredTextBox1.Text != "")
+            {
+                SaveGenerateCode();
+            }
+            else
+            {
+                MessageBox.Show("There isn't content to save");
+            }
+                
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -109,19 +117,32 @@ namespace Formal_Specification
             }
         }
 
-        private void BtnBuild_Click(object sender, EventArgs e)
+        private void BtnGenerate_Click(object sender, EventArgs e)
         {
+            if(richTextBox1.Text == "")
+            {
+                MessageBox.Show("Please input formal specification function (implicit)");
+                return;
+            }    
             richTextBox1.Text = richTextBox1.Text.Replace("\tpre", "pre").Replace("\tpost", "post");
             string[] stringSeparators = new string[] { "(" };
             string[] words = richTextBox1.Text.Split(stringSeparators, StringSplitOptions.None);
             string nameFunc = words[0];
-            string[] words1 = { nameFunc, "pre", "post", " && ", " || " };
+            string[] words1 = { nameFunc, "pre", "post" };
             string pattern = string.Join("|", words1.Select(phr => Regex.Escape(phr)));
             var matches = Regex.Matches(richTextBox1.Text, pattern, RegexOptions.IgnoreCase);
             foreach (Match m in matches)
             {
                 richTextBox1.Select(m.Index, m.Length);
                 richTextBox1.SelectionColor = Color.Blue;
+            }
+            string[] words2 = { "&&", "||", "VM", "TH" , "TT" };
+            string pattern2 = string.Join("|", words2.Select(phr => Regex.Escape(phr)));
+            var matches2 = Regex.Matches(richTextBox1.Text, pattern2, RegexOptions.IgnoreCase);
+            foreach (Match m in matches2)
+            {
+                richTextBox1.Select(m.Index, m.Length);
+                richTextBox1.SelectionColor = Color.Brown;
             }
             if (rdBtnCSharp.Checked)
             {
@@ -165,6 +186,11 @@ namespace Formal_Specification
 
         private void BtnRun_Click(object sender, EventArgs e)
         {
+            if (fastColoredTextBox1.Text == "")
+            {
+                MessageBox.Show("Please generate formal specification function (implicit)");
+                return;
+            }
             if (rdBtnCSharp.Checked)
             {
                 CSharpCodeProvider codeProvider = new CSharpCodeProvider();
@@ -232,9 +258,7 @@ namespace Formal_Specification
         public void SaveGenerateCode()
         {
             SaveFileDialog savefile = new SaveFileDialog();
-            savefile.Filter = String.Format("Program(*.txt)|.txt");
-            if (savefile.Filter == "")
-                savefile.Filter = "Program|.txt";
+            savefile.Filter = "Program|.txt";
             if (savefile.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter sw = new StreamWriter(savefile.FileName);

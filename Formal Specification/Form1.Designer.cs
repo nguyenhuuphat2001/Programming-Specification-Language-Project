@@ -32,7 +32,7 @@ namespace Formal_Specification
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnBuild = new System.Windows.Forms.Button();
+            this.btnGenerate = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,12 +43,12 @@ namespace Formal_Specification
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.newStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.openStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.saveStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.undoStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.redoStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rdBtnJava = new System.Windows.Forms.RadioButton();
             this.rdBtnCSharp = new System.Windows.Forms.RadioButton();
@@ -75,16 +75,16 @@ namespace Formal_Specification
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // btnBuild
+            // btnGenerate
             // 
-            this.btnBuild.BackColor = System.Drawing.Color.LightBlue;
-            this.btnBuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuild.Location = new System.Drawing.Point(320, 192);
-            this.btnBuild.Name = "btnBuild";
-            this.btnBuild.Size = new System.Drawing.Size(109, 33);
-            this.btnBuild.TabIndex = 2;
-            this.btnBuild.Text = "Generate";
-            this.btnBuild.UseVisualStyleBackColor = false;
+            this.btnGenerate.BackColor = System.Drawing.Color.LightBlue;
+            this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerate.Location = new System.Drawing.Point(320, 192);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(109, 33);
+            this.btnGenerate.TabIndex = 2;
+            this.btnGenerate.Text = "Generate";
+            this.btnGenerate.UseVisualStyleBackColor = false;
             // 
             // btnRun
             // 
@@ -126,25 +126,25 @@ namespace Formal_Specification
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // generateToolStripMenuItem
@@ -164,12 +164,12 @@ namespace Formal_Specification
             this.toolStrip2.BackColor = System.Drawing.Color.LightCyan;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3,
+            this.newStripButton1,
+            this.openStripButton2,
+            this.saveStripButton3,
             this.toolStripSeparator1,
-            this.toolStripLabel1,
-            this.toolStripLabel2});
+            this.undoStripLabel1,
+            this.redoStripLabel2});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -177,35 +177,38 @@ namespace Formal_Specification
             this.toolStrip2.TabIndex = 7;
             this.toolStrip2.Text = "toolStrip2";
             // 
-            // toolStripButton1
+            // newStripButton1
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::Formal_Specification.Properties.Resources.NewFile_16x;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(5);
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.newStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newStripButton1.Image = global::Formal_Specification.Properties.Resources.NewFile_16x;
+            this.newStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newStripButton1.Margin = new System.Windows.Forms.Padding(5);
+            this.newStripButton1.Name = "newStripButton1";
+            this.newStripButton1.Size = new System.Drawing.Size(24, 24);
+            this.newStripButton1.Text = "toolStripButton1";
+            this.newStripButton1.ToolTipText = "New";
             // 
-            // toolStripButton2
+            // openStripButton2
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::Formal_Specification.Properties.Resources.FolderOpened_16x;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Margin = new System.Windows.Forms.Padding(5);
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.openStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openStripButton2.Image = global::Formal_Specification.Properties.Resources.FolderOpened_16x;
+            this.openStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openStripButton2.Margin = new System.Windows.Forms.Padding(5);
+            this.openStripButton2.Name = "openStripButton2";
+            this.openStripButton2.Size = new System.Drawing.Size(24, 24);
+            this.openStripButton2.Text = "toolStripButton2";
+            this.openStripButton2.ToolTipText = "Open";
             // 
-            // toolStripButton3
+            // saveStripButton3
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::Formal_Specification.Properties.Resources.Save_16x;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Margin = new System.Windows.Forms.Padding(5);
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.saveStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveStripButton3.Image = global::Formal_Specification.Properties.Resources.Save_16x;
+            this.saveStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveStripButton3.Margin = new System.Windows.Forms.Padding(5);
+            this.saveStripButton3.Name = "saveStripButton3";
+            this.saveStripButton3.Size = new System.Drawing.Size(24, 24);
+            this.saveStripButton3.Text = "toolStripButton3";
+            this.saveStripButton3.ToolTipText = "Save";
             // 
             // toolStripSeparator1
             // 
@@ -213,19 +216,19 @@ namespace Formal_Specification
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 24);
             // 
-            // toolStripLabel1
+            // undoStripLabel1
             // 
-            this.toolStripLabel1.Margin = new System.Windows.Forms.Padding(5);
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(36, 24);
-            this.toolStripLabel1.Text = "Undo";
+            this.undoStripLabel1.Margin = new System.Windows.Forms.Padding(5);
+            this.undoStripLabel1.Name = "undoStripLabel1";
+            this.undoStripLabel1.Size = new System.Drawing.Size(36, 24);
+            this.undoStripLabel1.Text = "Undo";
             // 
-            // toolStripLabel2
+            // redoStripLabel2
             // 
-            this.toolStripLabel2.Margin = new System.Windows.Forms.Padding(5);
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(34, 24);
-            this.toolStripLabel2.Text = "Redo";
+            this.redoStripLabel2.Margin = new System.Windows.Forms.Padding(5);
+            this.redoStripLabel2.Name = "redoStripLabel2";
+            this.redoStripLabel2.Size = new System.Drawing.Size(34, 24);
+            this.redoStripLabel2.Text = "Redo";
             // 
             // groupBox1
             // 
@@ -323,7 +326,6 @@ namespace Formal_Specification
             this.fastColoredTextBox1.CharWidth = 8;
             this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBox1.IsReplaceMode = false;
             this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.CSharp;
             this.fastColoredTextBox1.LeftBracket = '(';
@@ -346,7 +348,7 @@ namespace Formal_Specification
             // 
             // Form1
             // 
-            this.AcceptButton = this.btnBuild;
+            this.AcceptButton = this.btnGenerate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
@@ -359,7 +361,7 @@ namespace Formal_Specification
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.btnRun);
-            this.Controls.Add(this.btnBuild);
+            this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -382,7 +384,7 @@ namespace Formal_Specification
         #endregion
 
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button btnBuild;
+        private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -391,15 +393,15 @@ namespace Formal_Specification
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton newStripButton1;
+        private System.Windows.Forms.ToolStripButton openStripButton2;
+        private System.Windows.Forms.ToolStripButton saveStripButton3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rdBtnCSharp;
         private System.Windows.Forms.RadioButton rdBtnJava;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripLabel undoStripLabel1;
+        private System.Windows.Forms.ToolStripLabel redoStripLabel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
