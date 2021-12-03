@@ -205,7 +205,6 @@ namespace Formal_Specification
                 parameters.OutputAssembly = Output;
                 CompilerResults results = icc.CompileAssemblyFromSource(parameters, fastColoredTextBox1.Text);
 
-
                 if (results.Errors.Count > 0)
                 {
                     string error_string = "";
