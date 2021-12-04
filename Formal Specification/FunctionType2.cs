@@ -628,8 +628,12 @@ namespace Formal_Specification
             output += "\n\t\t\t if (program.Check_" + this.nameFunc + "(" + printListVariableCSharp() + " == 1)";
             output += "\n\t\t\t{" +
                 "\n\t\t\t\t" + this.result.getName() + " = program." + this.nameFunc + "(" + printListVariableCSharp() + ";" +
+                "\n\t\t\t\tprogram.Output_" + this.nameFunc + "(" + this.result.getName() + ");" +
                 "\n\t\t\t}";
-            output += "\n\t\t\tprogram.Output_" + this.nameFunc + "(" + this.result.getName() + ");";
+            output += "\n\t\t\telse" +
+                "\n\t\t\t{" +
+                "\n\t\t\t\tConsole.WriteLine(\"Please check input!\");" +
+                "\n\t\t\t}";
             output += "\n\t\t\tConsole.ReadLine();";
             output += "\n\t\t}";
 
@@ -1328,14 +1332,17 @@ namespace Formal_Specification
 
             //Main function
             output += "\n\tpublic static void main(String[] args) {" +
-                "\n\t\tProgram program1 = new Program();" +
-                "\n\t\t" + variableClass + ".Input_" + this.nameFunc + "();" +
-                "\n\t\tif(" + variableClass + ".Check_" + this.nameFunc + "() == 1){" +
-                "\n\t\t\t" + variableClass + "." + this.result.getName() + " = " + variableClass + "." + this.nameFunc + "();" +
-                "\n\t\t}" +
-                "\n\t\t" + variableClass + "." + "Output_" + this.nameFunc + "();" +
-                "\n\t}" +
-                "\n}";
+               "\n\t\tProgram program1 = new Program();" +
+               "\n\t\t" + variableClass + ".Input_" + this.nameFunc + "();" +
+               "\n\t\tif(" + variableClass + ".Check_" + this.nameFunc + "() == 1){" +
+               "\n\t\t\t" + variableClass + "." + this.result.getName() + " = " + variableClass + "." + this.nameFunc + "();" +
+               "\n\t\t\t" + variableClass + "." + "Output_" + this.nameFunc + "();" +
+               "\n\t\t}" +
+               "\n\t\telse{" +
+               "\n\t\t\tSystem.out.print(\"Please check input!\");" +
+               "\n\t\t}" +
+               "\n\t}" +
+               "\n}";
 
             return output;
         }
